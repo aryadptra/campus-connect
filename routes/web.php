@@ -24,7 +24,7 @@ Route::group(['middleware' => 'admin'], function () {
     // Route::get('/admin', [AdminController::class, 'index']);
     // ...
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('backend.pages.dashboard');
     })->name('dashboard');
 });
 
