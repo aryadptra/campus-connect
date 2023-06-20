@@ -20,12 +20,11 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => 'admin'], function () {
-    // Rute halaman admin di sini
-    // Route::get('/admin', [AdminController::class, 'index']);
-    // ...
     Route::get('/dashboard', function () {
         return view('backend.pages.dashboard');
     })->name('dashboard');
+
+    Route::resource('universities', 'Admin\UniversityController');
 });
 
 

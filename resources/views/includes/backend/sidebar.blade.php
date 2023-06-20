@@ -3,20 +3,20 @@
         <div class="sidebar__menu-group">
             <ul class="sidebar_nav">
                 <li>
-                    <a href="{{ route('dashboard') }}" class="@if (Request::segment(2) == 'service') active @endif">
+                    <a href="{{ route('dashboard') }}" class="@if (Request::segment(1) == 'dashboard') active @endif">
                         <span class="nav-icon uil uil-create-dashboard"></span>
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
                 <li class="has-child">
-                    <a href="#" class="">
+                    <a href="#" class="@if (Request::segment(1) == 'data') active @endif">
                         <span class="nav-icon uil uil-create-dashboard"></span>
-                        <span class="menu-text">Dashboard</span>
+                        <span class="menu-text">Data Master</span>
                         <span class="toggle-icon"></span>
                     </a>
                     <ul>
-                        <li class="">
-                            <a href="index.html">Demo 1</a>
+                        <li class="@if (Request::segment(1) == 'universities') active @endif">
+                            <a href="{{ route('universities.index') }}">Universitas</a>
                         </li>
                     </ul>
                 </li>

@@ -7,7 +7,8 @@
                     <img class="light" src="backend/img/logo-white.png" alt="logo">
                 </a>
                 <a href="#" class="sidebar-toggle">
-                    <img class="svg" src="backend/img/svg/align-center-alt.svg" alt="img"></a>
+                    <img class="svg" src="backend/img/svg/align-center-alt.svg" alt="img">
+                </a>
             </div>
         </div>
         <!-- ends: navbar-left -->
