@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\University;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UniversityController extends Controller
 {
@@ -15,7 +16,11 @@ class UniversityController extends Controller
      */
     public function index()
     {
-        $data = University::all();
+        // $data = University::all();
+
+        // Paginate data
+        $data = University::paginate(10);
+
 
         return view('backend.pages.university.index', [
             'universities' => $data
@@ -29,7 +34,7 @@ class UniversityController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.pages.university.create');
     }
 
     /**
@@ -40,7 +45,41 @@ class UniversityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate
+        $validate = $request->validate([
+            'name' => 'required|unique:universities,name',
+            'address' => 'required',
+            'telephone' => 'required',
+            'email' => 'required|email|unique:universities,email',
+            'website' => 'required',
+            'logo' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        // Jika ada file logo yang diupload 
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/images/universities', $filename);
+            $data['logo'] = $filename;
+
+            University::create([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'village' => $request->village,
+                'district' => $request->district,
+                'city' => $request->city,
+                'province' => $request->province,
+                'address' => $request->address,
+                'telephone' => $request->telephone,
+                'email' => $request->email,
+                'website' => $request->website,
+                'logo' => $filename,
+                'status' => 'active'
+            ]);
+        }
+
+
+        return redirect()->route('universities.index')->with('success', 'Data universitas berhasil ditambahkan');
     }
 
     /**
@@ -51,7 +90,12 @@ class UniversityController extends Controller
      */
     public function show($id)
     {
-        //
+        // Get data
+        $data = University::findOrFail($id);
+
+        return view('backend.pages.university.show', [
+            'university' => $data
+        ]);
     }
 
     /**
@@ -62,7 +106,12 @@ class UniversityController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Get data
+        $data = University::findOrFail($id);
+
+        return view('backend.pages.university.edit', [
+            'university' => $data
+        ]);
     }
 
     /**
@@ -74,7 +123,47 @@ class UniversityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate
+        $validate = $request->validate([
+            'name' => 'required|unique:universities,name,' . $id,
+            'address' => 'required',
+            'telephone' => 'required',
+            'email' => 'required|email|unique:universities,email,' . $id,
+            'website' => 'required',
+            'logo' => 'image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        // Get data
+        $data = University::findOrFail($id);
+
+        // Jika ada file logo yang diupload
+        if ($request->hasFile('logo')) {
+            // Delete logo
+            unlink(public_path('storage/images/universities/' . $data->logo));
+
+            // Upload logo
+            $file = $request->file('logo');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/images/universities', $filename);
+            $data['logo'] = $filename;
+        }
+
+        // Update data
+        $data->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'village' => $request->village,
+            'district' => $request->district,
+            'city' => $request->city,
+            'province' => $request->province,
+            'address' => $request->address,
+            'telephone' => $request->telephone,
+            'email' => $request->email,
+            'website' => $request->website,
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('universities.index')->with('success', 'Data universitas berhasil diperbarui');
     }
 
     /**
@@ -85,6 +174,18 @@ class UniversityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Delete data
+        $data = University::findOrFail($id);
+
+        // Delete logo
+        $logo = $data->logo;
+
+        // Delete data
+        $data->delete();
+
+        // Delete logo
+        unlink(public_path('storage/images/universities/' . $logo));
+
+        return redirect()->route('universities.index')->with('success', 'Data universitas berhasil dihapus');
     }
 }
