@@ -37,6 +37,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('university-register-snm', 'Admin\UniversityRegisterSnmController');
     Route::resource('university-register-sbm', 'Admin\UniversityRegisterSbmController');
     Route::resource('university-register-mandiri', 'Admin\UniversityRegisterMandiriController');
+
+    Route::resource('university-blog', 'Admin\UniversityBlogController');
+    Route::get('university/{university}/university-blog/create', 'Admin\UniversityBlogController@create')->name('university-blog.create');
 });
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\University;
+use App\Models\UniversityBlog;
 use App\Models\UniversityFaculty;
 use App\Models\UniversityRegisterMandiri;
 use App\Models\UniversityRegisterSbm;
@@ -128,6 +129,7 @@ class UniversityController extends Controller
             $univMandiri = null;
         }
 
+        $blog = UniversityBlog::where('university_id', $id)->get();
 
         return view('backend.pages.university.show', [
             'university' => $data,
@@ -137,6 +139,7 @@ class UniversityController extends Controller
             'univSnm' => $univSnm,
             'univSbm' => $univSbm,
             'univMandiri' => $univMandiri,
+            'blog' => $blog,
             'univId' => $univId
         ]);
     }

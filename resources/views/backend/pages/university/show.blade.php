@@ -347,6 +347,111 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 col-md-6 mb-30">
+                <div class="card mt-30">
+                    <div class="card-body">
+                        <div class="support-ticket-system support-ticket-system--search">
+                            <div class="breadcrumb-main m-0 breadcrumb-main--table justify-content-sm-between">
+                                <div class="d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
+                                    <div
+                                        class="d-flex align-items-center ticket__title justify-content-center me-md-25 mb-md-0 mb-20">
+                                        <h4 class="text-capitalize fw-500 breadcrumb-title">
+                                            Data Blog
+                                        </h4>
+                                    </div>
+                                </div>
+                                {{-- <div class="action-btn"> --}}
+                                <a class="btn btn-primary" href="{{ route('university-blog.create', $univId) }}">
+                                    Tambah Data
+                                </a>
+                                {{-- </div> --}}
+                            </div>
+                            <div
+                                class="support-form datatable-support-form d-flex justify-content-xxl-between justify-content-center align-items-center flex-wrap">
+                                <div class="support-form__input">
+                                </div>
+                                <div class="support-form__search">
+                                </div>
+                            </div>
+                            <div class="userDatatable userDatatable--ticket userDatatable--ticket--2 mt-1">
+                                <div class="table-responsive">
+                                    <table class="table mb-0 table-borderless">
+                                        <thead>
+                                            <tr class="userDatatable-header">
+                                                <th>
+                                                    <span class="userDatatable-title">no</span>
+                                                </th>
+                                                <th>
+                                                    <span class="userDatatable-title">gambar</span>
+                                                </th>
+                                                <th>
+                                                    <span class="userDatatable-title">judul</span>
+                                                </th>
+                                                <th>
+                                                    <span class="userDatatable-title float-end">action</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($blog as $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div
+                                                                class="userDatatable__imgWrapper d-flex align-items-center">
+                                                                <img src="{{ asset('storage/backend/images/universities/blog/' . $item->image) }}"
+                                                                    alt="avatar" class="img-fluid rounded"
+                                                                    width="50" height="50" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ $item->title }}</td>
+                                                    <td>
+                                                        <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
+                                                            <div class="dropdown dropdown-click">
+                                                                <button class="btn-link border-0 bg-transparent p-0"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <img src="{{ asset('backend/img/svg/more-horizontal.svg') }}"
+                                                                        alt="more-horizontal" class="svg" />
+                                                                </button>
+                                                                <div
+                                                                    class="dropdown-default dropdown-bottomLeft dropdown-menu-right dropdown-menu--dynamic dropdown-menu">
+                                                                    {{-- <a class="dropdown-item"
+                                                                        href="{{ route('university-faculties.show', $item->id) }}">Detail</a> --}}
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('university-blog.edit', $item->id) }}">Edit</a>
+                                                                    <form id="formDelete"
+                                                                        action="{{ route('university-blog.destroy', $item->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item">
+                                                                            Hapus
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="d-flex justify-content-end pt-30">
+                                    <nav class="dm-page">
+                                        {{-- Pagination --}}
+                                        {{-- {{ $universities->links() }} --}}
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
