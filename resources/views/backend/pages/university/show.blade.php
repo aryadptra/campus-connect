@@ -5,7 +5,23 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12 mb-30">
+            <div class="col-12">
+                {{-- Jika ada flash session message --}}
+                @if (session()->has('success'))
+                    <div class=" alert alert-success alert-dismissible fade show mt-5" role="alert">
+                        <div class="alert-content">
+                            <p>
+                                {{ session()->get('success') }}
+                            </p>
+                            <button type="button" class="btn-close text-capitalize" data-bs-dismiss="alert" aria-label="Close">
+                                <img src="{{ asset('backend/img/svg/x.svg') }}" alt="x" class="svg"
+                                    aria-hidden="true">
+                            </button>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="col-12 col-md-12 mb-30">
                 <div class="card mt-30">
                     <div class="card-body">
                         <div class="support-ticket-system support-ticket-system--search">
@@ -14,12 +30,12 @@
                                     <div
                                         class="d-flex align-items-center ticket__title justify-content-center me-md-25 mb-md-0 mb-20">
                                         <h4 class="text-capitalize fw-500 breadcrumb-title">
-                                            Data Universitas
+                                            Data Fakultas
                                         </h4>
                                     </div>
                                 </div>
                                 {{-- <div class="action-btn"> --}}
-                                <a class="btn btn-primary" href="{{ route('universities.create') }}">
+                                <a class="btn btn-primary" href="{{ route('university-faculties.create', $univId) }}">
                                     Tambah Data
                                 </a>
                                 {{-- </div> --}}
@@ -40,37 +56,7 @@
                                                     <span class="userDatatable-title">no</span>
                                                 </th>
                                                 <th>
-                                                    <span class="userDatatable-title">logo</span>
-                                                </th>
-                                                <th data-type="html" data-name="name">
                                                     <span class="userDatatable-title">nama</span>
-                                                </th>
-                                                <th data-type="html" data-name="village">
-                                                    <span class="userDatatable-title">kelurahan</span>
-                                                </th>
-                                                <th data-type="html" data-name='district'>
-                                                    <span class="userDatatable-title">kecamatan</span>
-                                                </th>
-                                                <th data-type="html" data-name='city'>
-                                                    <span class="userDatatable-title">kabupaten</span>
-                                                </th>
-                                                <th data-type="html" data-name='province'>
-                                                    <span class="userDatatable-title">provinsi</span>
-                                                </th>
-                                                <th data-type="html" data-name="address">
-                                                    <span class="userDatatable-title">alamat</span>
-                                                </th>
-                                                <th data-type="html" data-name='telephone'>
-                                                    <span class="userDatatable-title">telepon</span>
-                                                </th>
-                                                <th data-type="html" data-name='email'>
-                                                    <span class="userDatatable-title">email</span>
-                                                </th>
-                                                <th data-type="html" data-name='website'>
-                                                    <span class="userDatatable-title">website</span>
-                                                </th>
-                                                <th data-type="html" data-name="status">
-                                                    <span class="userDatatable-title">status</span>
                                                 </th>
                                                 <th>
                                                     <span class="userDatatable-title float-end">action</span>
@@ -78,65 +64,40 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            <tr>
-                                                <td>{{ $university->item }}</td>
-                                                <td>
-                                                    <img src="{{ asset('storage/images/universities/' . $university->logo) }}"
-                                                        alt="{{ $university->nama }}" width="100">
-                                                </td>
-                                                <td>{{ $university->name }}</td>
-                                                <td>{{ $university->village }}</td>
-                                                <td>{{ $university->district }}</td>
-                                                <td>{{ $university->city }}</td>
-                                                <td>{{ $university->province }}</td>
-                                                <td>{{ $university->address }}</td>
-                                                <td>{{ $university->telephone }}</td>
-                                                <td>{{ $university->email }}</td>
-                                                <td>{{ $university->website }}</td>
-                                                <td>
-                                                    <div class="userDatatable-content d-inline-block">
-                                                        @if ($university->status == 'active')
-                                                            <span
-                                                                class="bg-opacity-success  color-success userDatatable-content-status active">Active</span>
-                                                        @else
-                                                            <span
-                                                                class="bg-opacity-danger color-danger userDatatable-content-status active">Inactive</span>
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
-                                                        <li>
-                                                            <a href="{{ route('universities.show', $university->id) }}"
-                                                                class="view">
-                                                                <i class="uil uil-setting"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ route('universities.edit', $university->id) }}"
-                                                                class="edit">
-                                                                <i class="uil uil-edit"></i>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="delete" onclick="deleteData()">
-                                                                <i class="uil uil-trash-alt"></i>
-                                                            </a>
-                                                            {{-- Form Delete --}}
-                                                            <form hidden id="formDelete"
-                                                                action="{{ route('universities.destroy', $university->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="delete">
-                                                                    <i class="uil uil-trash-alt"></i>
+                                            @foreach ($faculties as $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>
+                                                        <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
+                                                            <div class="dropdown dropdown-click">
+                                                                <button class="btn-link border-0 bg-transparent p-0"
+                                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <img src="{{ asset('backend/img/svg/more-horizontal.svg') }}"
+                                                                        alt="more-horizontal" class="svg" />
                                                                 </button>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
+                                                                <div
+                                                                    class="dropdown-default dropdown-bottomLeft dropdown-menu-right dropdown-menu--dynamic dropdown-menu">
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('university-faculties.show', $item->id) }}">Detail</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('university-faculties.edit', $item->id) }}">Edit</a>
+                                                                    <form id="formDelete"
+                                                                        action="{{ route('university-faculties.destroy', $item->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item">
+                                                                            Hapus
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

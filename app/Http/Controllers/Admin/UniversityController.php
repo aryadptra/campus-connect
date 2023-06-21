@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\University;
+use App\Models\UniversityFaculty;
+use App\Models\UniversityStudyPrograms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -93,8 +95,21 @@ class UniversityController extends Controller
         // Get data
         $data = University::findOrFail($id);
 
+        $faculties = UniversityFaculty::where('university_id', $id)->get();
+
+        // Get data university faculty
+        $dataFaculty = $data->faculties()->paginate(10);
+
+        $studyProgram = UniversityStudyPrograms::where('faculty_id', $id)->get();
+
+        $univId = $data->id;
+
         return view('backend.pages.university.show', [
-            'university' => $data
+            'university' => $data,
+            'faculties' => $faculties,
+            'faculty' => $dataFaculty,
+            'studyProgram' => $studyProgram,
+            'univId' => $univId
         ]);
     }
 

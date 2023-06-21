@@ -8,7 +8,7 @@
             <div class="col-12">
                 {{-- Jika ada flash session message --}}
                 @if (session()->has('success'))
-                    <div class=" alert alert-success alert-dismissible fade show " role="alert">
+                    <div class=" alert alert-success alert-dismissible fade show mt-5" role="alert">
                         <div class="alert-content">
                             <p>
                                 {{ session()->get('success') }}
@@ -21,7 +21,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-lg-12 mb-30">
+            <div class="col-12 col-md-12 mb-30">
                 <div class="card mt-30">
                     <div class="card-body">
                         <div class="support-ticket-system support-ticket-system--search">
@@ -30,15 +30,14 @@
                                     <div
                                         class="d-flex align-items-center ticket__title justify-content-center me-md-25 mb-md-0 mb-20">
                                         <h4 class="text-capitalize fw-500 breadcrumb-title">
-                                            Data Universitas
+                                            Data Program Studi
                                         </h4>
                                     </div>
                                 </div>
-                                {{-- <div class="action-btn"> --}}
-                                <a class="btn btn-primary" href="{{ route('universities.create') }}">
+                                <a class="btn btn-primary"
+                                    href="{{ route('university-study-program.create', $facultyId) }}">
                                     Tambah Data
                                 </a>
-                                {{-- </div> --}}
                             </div>
                             <div
                                 class="support-form datatable-support-form d-flex justify-content-xxl-between justify-content-center align-items-center flex-wrap">
@@ -56,37 +55,10 @@
                                                     <span class="userDatatable-title">no</span>
                                                 </th>
                                                 <th>
-                                                    <span class="userDatatable-title">logo</span>
-                                                </th>
-                                                <th data-type="html" data-name="name">
                                                     <span class="userDatatable-title">nama</span>
                                                 </th>
-                                                <th data-type="html" data-name="village">
-                                                    <span class="userDatatable-title">kelurahan</span>
-                                                </th>
-                                                <th data-type="html" data-name='district'>
-                                                    <span class="userDatatable-title">kecamatan</span>
-                                                </th>
-                                                <th data-type="html" data-name='city'>
-                                                    <span class="userDatatable-title">kabupaten</span>
-                                                </th>
-                                                <th data-type="html" data-name='province'>
-                                                    <span class="userDatatable-title">provinsi</span>
-                                                </th>
-                                                <th data-type="html" data-name="address">
-                                                    <span class="userDatatable-title">alamat</span>
-                                                </th>
-                                                <th data-type="html" data-name='telephone'>
-                                                    <span class="userDatatable-title">telepon</span>
-                                                </th>
-                                                <th data-type="html" data-name='email'>
-                                                    <span class="userDatatable-title">email</span>
-                                                </th>
-                                                <th data-type="html" data-name='website'>
-                                                    <span class="userDatatable-title">website</span>
-                                                </th>
-                                                <th data-type="html" data-name="status">
-                                                    <span class="userDatatable-title">status</span>
+                                                <th>
+                                                    <span class="userDatatable-title">fakultas</span>
                                                 </th>
                                                 <th>
                                                     <span class="userDatatable-title float-end">action</span>
@@ -94,34 +66,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            @foreach ($universities as $university)
+                                            @foreach ($studyProgram as $item)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>
-                                                        <img src="{{ asset('storage/images/universities/' . $university->logo) }}"
-                                                            alt="{{ $university->nama }}" width="100">
-                                                    </td>
-                                                    <td>{{ $university->name }}</td>
-                                                    <td>{{ $university->village }}</td>
-                                                    <td>{{ $university->district }}</td>
-                                                    <td>{{ $university->city }}</td>
-                                                    <td>{{ $university->province }}</td>
-                                                    <td>{{ $university->address }}</td>
-                                                    <td>{{ $university->telephone }}</td>
-                                                    <td>{{ $university->email }}</td>
-                                                    <td>{{ $university->website }}</td>
-                                                    <td>
-                                                        <div class="userDatatable-content d-inline-block">
-                                                            @if ($university->status == 'active')
-                                                                <span
-                                                                    class="bg-opacity-success  color-success userDatatable-content-status active">Active</span>
-                                                            @else
-                                                                <span
-                                                                    class="bg-opacity-danger color-danger userDatatable-content-status active">Inactive</span>
-                                                            @endif
-                                                        </div>
-                                                    </td>
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->faculty->name }}</td>
                                                     <td>
                                                         <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
                                                             <div class="dropdown dropdown-click">
@@ -131,15 +80,12 @@
                                                                     <img src="{{ asset('backend/img/svg/more-horizontal.svg') }}"
                                                                         alt="more-horizontal" class="svg" />
                                                                 </button>
-
                                                                 <div
                                                                     class="dropdown-default dropdown-bottomLeft dropdown-menu-right dropdown-menu--dynamic dropdown-menu">
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('universities.show', $university->id) }}">Detail</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('universities.edit', $university->id) }}">Edit</a>
+                                                                        href="{{ route('university-study-program.edit', $item->id) }}">Edit</a>
                                                                     <form id="formDelete"
-                                                                        action="{{ route('universities.destroy', $university->id) }}"
+                                                                        action="{{ route('university-study-program.destroy', $item->id) }}"
                                                                         method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -159,7 +105,7 @@
                                 <div class="d-flex justify-content-end pt-30">
                                     <nav class="dm-page">
                                         {{-- Pagination --}}
-                                        {{ $universities->links() }}
+                                        {{-- {{ $universities->links() }} --}}
                                     </nav>
                                 </div>
                             </div>

@@ -24,4 +24,10 @@ class University extends Model
         'logo',
         'status'
     ];
+
+    // Relationship
+    public function faculties()
+    {
+        return $this->hasMany(UniversityFaculty::class);
+    }
 }

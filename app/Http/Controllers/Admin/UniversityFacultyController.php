@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\University;
 use App\Models\UniversityFaculty;
 use App\Models\UniversityStudyPrograms;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
 
 class UniversityFacultyController extends Controller
 {
@@ -26,7 +29,7 @@ class UniversityFacultyController extends Controller
      */
     public function create($univId)
     {
-        $university = University::find($univId);
+        $university = University::findOrFail($univId);
 
         return view('backend.pages.university-faculties.create', compact('university'));
     }
@@ -39,6 +42,15 @@ class UniversityFacultyController extends Controller
      */
     public function store(Request $request)
     {
+
+        // Create data
+        $data = UniversityFaculty::create([
+            'university_id' => $request->university_id,
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
+
+        return redirect()->route('universities.show', $request->university_id)->with('success', 'Fakultas berhasil ditambahkan');
     }
 
     /**
@@ -49,6 +61,14 @@ class UniversityFacultyController extends Controller
      */
     public function show(UniversityFaculty $universityFaculty)
     {
+        $facultyId = $universityFaculty->id;
+
+        $studyProgram = UniversityStudyPrograms::where('faculty_id', $facultyId)->get();
+
+        return view('backend.pages.university-faculties.show', [
+            'studyProgram' => $studyProgram,
+            'facultyId' => $facultyId,
+        ]);
     }
 
     /**
@@ -59,7 +79,11 @@ class UniversityFacultyController extends Controller
      */
     public function edit(UniversityFaculty $universityFaculty)
     {
-        //
+        $data = UniversityFaculty::findOrFail($universityFaculty->id);
+
+        return view('backend.pages.university-faculties.edit', [
+            'faculty' => $data
+        ]);
     }
 
     /**
@@ -71,7 +95,12 @@ class UniversityFacultyController extends Controller
      */
     public function update(Request $request, UniversityFaculty $universityFaculty)
     {
-        //
+        UniversityFaculty::where('id', $universityFaculty->id)->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name)
+        ]);
+
+        return redirect()->route('universities.show', $universityFaculty->university_id)->with('success', 'Fakultas berhasil diubah');
     }
 
     /**
@@ -82,6 +111,9 @@ class UniversityFacultyController extends Controller
      */
     public function destroy(UniversityFaculty $universityFaculty)
     {
-        //
+        // Delete data
+        $universityFaculty->delete();
+
+        return redirect()->route('universities.show', $universityFaculty->university_id)->with('success', 'Fakultas berhasil dihapus');
     }
 }
