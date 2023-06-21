@@ -68,6 +68,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="formGroupExampleInput3"
+                                                class="color-dark fs-14 fw-500 align-center mb-10">Deskripsi</label>
+                                            <textarea class="form-control" name="description" required id="exampleFormControlTextarea1" rows="3"
+                                                placeholder="Jl. Surya Kencana No. 1"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput3"
                                                 class="color-dark fs-14 fw-500 align-center mb-10">Logo</label>
                                             <div class="custom-file">
                                                 <input class="form-control custom-file-input" name="logo" required

@@ -54,6 +54,7 @@ class UniversityController extends Controller
         // validate
         $validate = $request->validate([
             'name' => 'required|unique:universities,name',
+            'description' => 'required',
             'address' => 'required',
             'telephone' => 'required',
             'email' => 'required|email|unique:universities,email',
@@ -70,6 +71,7 @@ class UniversityController extends Controller
 
             University::create([
                 'name' => $request->name,
+                'description' => $request->description,
                 'slug' => Str::slug($request->name),
                 'village' => $request->village,
                 'district' => $request->district,
@@ -172,6 +174,7 @@ class UniversityController extends Controller
         // Validate
         $validate = $request->validate([
             'name' => 'required|unique:universities,name,' . $id,
+            'description' => 'required',
             'address' => 'required',
             'telephone' => 'required',
             'email' => 'required|email|unique:universities,email,' . $id,
@@ -197,6 +200,7 @@ class UniversityController extends Controller
         // Update data
         $data->update([
             'name' => $request->name,
+            'description' => $request->description,
             'slug' => Str::slug($request->name),
             'village' => $request->village,
             'district' => $request->district,

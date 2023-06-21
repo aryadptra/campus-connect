@@ -12,6 +12,7 @@ class University extends Model
     // Fillable
     protected $fillable = [
         'name',
+        'description',
         'slug',
         'village',
         'district',
