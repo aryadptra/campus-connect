@@ -112,6 +112,241 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-12 col-md-6 mb-30">
+                <div class="card mt-30">
+                    <div class="card-body">
+                        <div class="support-ticket-system support-ticket-system--search">
+                            <div class="breadcrumb-main m-0 breadcrumb-main--table justify-content-sm-between">
+                                <div class="d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
+                                    <div
+                                        class="d-flex align-items-center ticket__title justify-content-center me-md-25 mb-md-0 mb-20">
+                                        <h4 class="text-capitalize fw-500 breadcrumb-title">
+                                            Jadwal Pendaftaran SNM
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Vertical-form mt-30">
+                                <form action="{{ route('university-register-snm.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput3"
+                                                    class="color-dark fs-14 fw-500 align-center mb-10">Jadwal Mulai</label>
+                                                <input type="text" hidden name="univ_id" value="{{ $univId }}"
+                                                    id="">
+                                                {{-- Date --}}
+                                                <div class="date-picker-list mt-1 mb-2">
+                                                    <div class="dm-date-picker">
+                                                        <div class="form-group mb-0 form-group-calender">
+                                                            <div class="position-relative">
+                                                                <input type="text"
+                                                                    value="{{ $univSnm[0]['start_date'] }}"
+                                                                    name="start_date"
+                                                                    class="form-control form-control-default"
+                                                                    id="datepicker" placeholder="Januari 20, 2018">
+                                                                <a href="#"><img class="svg"
+                                                                        src="{{ asset('backend/img/svg/calendar.svg') }}"
+                                                                        alt="calendar"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput3"
+                                                    class="color-dark fs-14 fw-500 align-center mb-10">Jadwal
+                                                    Selesai</label>
+                                                {{-- Date --}}
+                                                <div class="date-picker-list mt-1">
+                                                    <div class="dm-date-picker">
+                                                        <div class="form-group mb-0 form-group-calender">
+                                                            <div class="position-relative">
+                                                                <input type="text" name="end_date"
+                                                                    value="{{ $univSnm[0]['end_date'] }}"
+                                                                    class="form-control form-control-default"
+                                                                    id="datepicker2" placeholder="Maret 20, 2018">
+                                                                <a href="#"><img class="svg"
+                                                                        src="{{ asset('backend/img/svg/calendar.svg') }}"
+                                                                        alt="calendar"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layout-button mt-25">
+                                        <a href="#" class="btn btn-default btn-squared btn-light px-20 ">Cancel</a>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-default btn-squared px-30">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-30">
+                <div class="card mt-30">
+                    <div class="card-body">
+                        <div class="support-ticket-system support-ticket-system--search">
+                            <div class="breadcrumb-main m-0 breadcrumb-main--table justify-content-sm-between">
+                                <div class="d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
+                                    <div
+                                        class="d-flex align-items-center ticket__title justify-content-center me-md-25 mb-md-0 mb-20">
+                                        <h4 class="text-capitalize fw-500 breadcrumb-title">
+                                            Jadwal Pendaftaran SBM
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Vertical-form mt-30">
+                                <form action="{{ route('university-register-sbm.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput3"
+                                                    class="color-dark fs-14 fw-500 align-center mb-10">Jadwal Mulai</label>
+                                                <input type="text" hidden name="univ_id" value="{{ $univId }}"
+                                                    id="">
+                                                {{-- Date --}}
+                                                <div class="date-picker-list mt-1 mb-2">
+                                                    <div class="dm-date-picker">
+                                                        <div class="form-group mb-0 form-group-calender">
+                                                            <div class="position-relative">
+                                                                <input type="text" name="start_date"
+                                                                    value="{{ $univSbm->isEmpty() ? '' : $univSbm[0]['start_date'] }}"
+                                                                    class="form-control form-control-default"
+                                                                    id="datepicker3" placeholder="Januari 20, 2018">
+                                                                <a href="#"><img class="svg"
+                                                                        src="{{ asset('backend/img/svg/calendar.svg') }}"
+                                                                        alt="calendar"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput3"
+                                                    class="color-dark fs-14 fw-500 align-center mb-10">Jadwal
+                                                    Selesai</label>
+                                                {{-- Date --}}
+                                                <div class="date-picker-list mt-1">
+                                                    <div class="dm-date-picker">
+                                                        <div class="form-group mb-0 form-group-calender">
+                                                            <div class="position-relative">
+                                                                <input type="text" name="end_date"
+                                                                    value="{{ $univSbm->isEmpty() ? '' : $univSbm[0]['end_date'] }}"
+                                                                    class="form-control form-control-default"
+                                                                    id="datepicker4" placeholder="Maret 20, 2018">
+                                                                <a href="#"><img class="svg"
+                                                                        src="{{ asset('backend/img/svg/calendar.svg') }}"
+                                                                        alt="calendar"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layout-button mt-25">
+                                        <a href="#" class="btn btn-default btn-squared btn-light px-20 ">Cancel</a>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-default btn-squared px-30">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-30">
+                <div class="card mt-30">
+                    <div class="card-body">
+                        <div class="support-ticket-system support-ticket-system--search">
+                            <div class="breadcrumb-main m-0 breadcrumb-main--table justify-content-sm-between">
+                                <div class="d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
+                                    <div
+                                        class="d-flex align-items-center ticket__title justify-content-center me-md-25 mb-md-0 mb-20">
+                                        <h4 class="text-capitalize fw-500 breadcrumb-title">
+                                            Jadwal Pendaftaran Mandiri
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Vertical-form mt-30">
+                                <form action="{{ route('university-register-mandiri.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput3"
+                                                    class="color-dark fs-14 fw-500 align-center mb-10">Jadwal Mulai</label>
+                                                <input type="text" hidden name="univ_id" value="{{ $univId }}"
+                                                    id="">
+                                                {{-- Date --}}
+                                                <div class="date-picker-list mt-1 mb-2">
+                                                    <div class="dm-date-picker">
+                                                        <div class="form-group mb-0 form-group-calender">
+                                                            <div class="position-relative">
+                                                                <input type="text" name="start_date"
+                                                                    value="{{ $univMandiri->isEmpty() ? '' : $univMandiri[0]['start_date'] }}"
+                                                                    class="form-control form-control-default"
+                                                                    id="datepicker5" placeholder="Januari 20, 2018">
+                                                                <a href="#"><img class="svg"
+                                                                        src="{{ asset('backend/img/svg/calendar.svg') }}"
+                                                                        alt="calendar"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formGroupExampleInput3"
+                                                    class="color-dark fs-14 fw-500 align-center mb-10">Jadwal
+                                                    Selesai</label>
+                                                {{-- Date --}}
+                                                <div class="date-picker-list mt-1">
+                                                    <div class="dm-date-picker">
+                                                        <div class="form-group mb-0 form-group-calender">
+                                                            <div class="position-relative">
+                                                                <input type="text" name="end_date"
+                                                                    value="{{ $univMandiri->isEmpty() ? '' : $univMandiri[0]['end_date'] }}"
+                                                                    class="form-control form-control-default"
+                                                                    id="datepicker6" placeholder="Maret 20, 2018">
+                                                                <a href="#"><img class="svg"
+                                                                        src="{{ asset('backend/img/svg/calendar.svg') }}"
+                                                                        alt="calendar"></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layout-button mt-25">
+                                        <a href="#" class="btn btn-default btn-squared btn-light px-20 ">Cancel</a>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-default btn-squared px-30">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

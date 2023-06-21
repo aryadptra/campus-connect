@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\University;
 use App\Models\UniversityFaculty;
+use App\Models\UniversityRegisterMandiri;
+use App\Models\UniversityRegisterSbm;
+use App\Models\UniversityRegisterSnm;
 use App\Models\UniversityStudyPrograms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -104,11 +107,36 @@ class UniversityController extends Controller
 
         $univId = $data->id;
 
+        $univSnm = UniversityRegisterSnm::where('university_id', $id)->get();
+
+        // Jika $univSnm tidak ada
+        if (!$univSnm) {
+            $univSnm = null;
+        }
+
+        $univSbm = UniversityRegisterSbm::where('university_id', $id)->get();
+
+        // Jika $univSbm tidak ada
+        if (!$univSbm) {
+            $univSbm = null;
+        }
+
+        $univMandiri = UniversityRegisterMandiri::where('university_id', $id)->get();
+
+        // Jika $univMandiri tidak ada
+        if (!$univMandiri) {
+            $univMandiri = null;
+        }
+
+
         return view('backend.pages.university.show', [
             'university' => $data,
             'faculties' => $faculties,
             'faculty' => $dataFaculty,
             'studyProgram' => $studyProgram,
+            'univSnm' => $univSnm,
+            'univSbm' => $univSbm,
+            'univMandiri' => $univMandiri,
             'univId' => $univId
         ]);
     }

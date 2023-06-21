@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUniversityRegisterSchedulesTable extends Migration
+class CreateUniversityRegisterSnmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUniversityRegisterSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('university_register_schedules', function (Blueprint $table) {
+        Schema::create('university_register_snms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('university_id')->constrained('universities')->onDelete('cascade');
             $table->string('name');
@@ -31,6 +31,6 @@ class CreateUniversityRegisterSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('university_register_schedules');
+        Schema::dropIfExists('university_register_snms');
     }
 }

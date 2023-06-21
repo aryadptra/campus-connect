@@ -25,12 +25,18 @@ Route::group(['middleware' => 'admin'], function () {
     })->name('dashboard');
 
     Route::resource('universities', 'Admin\UniversityController');
-    
+
     Route::resource('university-faculties', 'Admin\UniversityFacultyController');
     Route::get('university/{university}/university-faculties/create', 'Admin\UniversityFacultyController@create')->name('university-faculties.create');
 
     Route::resource('university-study-program', 'Admin\UniversityStudyProgramsController');
     Route::get('university-faculty/{universityFaculty}/university-study-program/create', 'Admin\UniversityStudyProgramsController@create')->name('university-study-program.create');
+
+    // Route::resource('university-register-schedule', 'Admin\UniversityRegisterSchedulesController');
+
+    Route::resource('university-register-snm', 'Admin\UniversityRegisterSnmController');
+    Route::resource('university-register-sbm', 'Admin\UniversityRegisterSbmController');
+    Route::resource('university-register-mandiri', 'Admin\UniversityRegisterMandiriController');
 });
 
 
