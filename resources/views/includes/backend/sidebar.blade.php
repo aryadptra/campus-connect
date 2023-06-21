@@ -8,27 +8,21 @@
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="has-child">
-                    <a href="#" class="@if (Request::segment(1) == 'data') active @endif">
+                <li>
+                    <a href="{{ route('universities.index') }}" class="@if (Request::segment(1) == 'universities') active @endif">
                         <span class="nav-icon uil uil-create-dashboard"></span>
-                        <span class="menu-text">Data Master</span>
-                        <span class="toggle-icon"></span>
+                        <span class="menu-text">Universitas</span>
                     </a>
-                    <ul>
-                        <li class="@if (Request::segment(1) == 'universities') active @endif">
-                            <a href="{{ route('universities.index') }}">Universitas</a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="menu-title mt-2">
                     <span>Users</span>
                 </li>
-                <li class="">
+                {{-- <li class="">
                     <a href="sign-up.html">
                         <span class="nav-icon uil uil-sign-out-alt"></span>
                         <span class="menu-text">Sign Up</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
