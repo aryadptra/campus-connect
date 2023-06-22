@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\University;
 use App\Models\UniversityBlog;
 use App\Models\UniversityFaculty;
+use App\Models\UniversityFavorites;
 use App\Models\UniversityRegisterMandiri;
 use App\Models\UniversityRegisterSbm;
 use App\Models\UniversityRegisterSnm;
 use App\Models\UniversityStudyPrograms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class UniversityController extends Controller

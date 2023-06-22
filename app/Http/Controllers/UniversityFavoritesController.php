@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UniversityBlog;
+use App\Models\UniversityFavorites;
 use Illuminate\Http\Request;
 
-class UniversityBlogController extends Controller
+class UniversityFavoritesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +14,7 @@ class UniversityBlogController extends Controller
      */
     public function index()
     {
-        // Tampilkan data
-        $data = UniversityBlog::paginate(10);
-
-        return view('frontend.blog', [
-            'universityBlogs' => $data
-        ]);
+        //
     }
 
     /**
@@ -40,16 +35,16 @@ class UniversityBlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\UniversityBlog  $universityBlog
+     * @param  \App\Models\UniversityFavorites  $universityFavorites
      * @return \Illuminate\Http\Response
      */
-    public function show(UniversityBlog $universityBlog)
+    public function show(UniversityFavorites $universityFavorites)
     {
         //
     }
@@ -57,10 +52,10 @@ class UniversityBlogController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\UniversityBlog  $universityBlog
+     * @param  \App\Models\UniversityFavorites  $universityFavorites
      * @return \Illuminate\Http\Response
      */
-    public function edit(UniversityBlog $universityBlog)
+    public function edit(UniversityFavorites $universityFavorites)
     {
         //
     }
@@ -69,10 +64,10 @@ class UniversityBlogController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UniversityBlog  $universityBlog
+     * @param  \App\Models\UniversityFavorites  $universityFavorites
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UniversityBlog $universityBlog)
+    public function update(Request $request, UniversityFavorites $universityFavorites)
     {
         //
     }
@@ -80,10 +75,10 @@ class UniversityBlogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UniversityBlog  $universityBlog
+     * @param  \App\Models\UniversityFavorites  $universityFavorites
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UniversityBlog $universityBlog)
+    public function destroy(UniversityFavorites $universityFavorites)
     {
         //
     }

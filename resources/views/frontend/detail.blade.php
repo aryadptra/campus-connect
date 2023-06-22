@@ -3,55 +3,57 @@
 @section('title', 'Landing Page')
 
 @section('content')
+    {{-- Success --}}
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{ session('success') }}</strong>
+        </div>
+    @endif
+
+    {{-- Error --}}
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session('error') }}</strong>
+        </div>
+    @endif
     <div class="row mt-5">
         <div class="col-lg-8 mb-30">
             <div class="job-details-card">
                 <div class="job-details-card__top flex-wrap">
                     <div class="job-item__image">
                         <a href="#">
-                            <img class="job-item__image-img img-fluid" src="{{ asset('backend/img/stats.png') }}"
-                                alt="digital-chair">
+                            <img class="job-item__image-img img-fluid"
+                                src="{{ asset('storage/images/universities/' . $university->logo) }}" alt="digital-chair">
                         </a>
                         <div class="job-item__title">
                             <a href="jobDetails.html">
-                                <h3 class="card-title">Universitas Pamulang</h3>
+                                <h3 class="card-title">
+                                    {{ $university->name }}
+                                </h3>
                             </a>
-                            <span>Tangerang Selatan, Banten</span>
+                            <span>{{ $university->city }}, {{ $university->province }}</span>
                         </div>
                     </div>
                 </div>
                 <div class="job-details-card__middle">
                     <h4>Deskripsi</h4>
-                    <p>There are have a many variations of passages of Lorem Ipsum available, but the randomised words which
-                        don't look even slightly believable. If you are going to sdsss embarrassing hidden in the middle of
-                        text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary,
-                        making which don't
-                        first true generator on the Internet.</p>
+                    <p>{{ $university->description }}</p>
                     <h4>Fakultas</h4>
-                    <ul>
-                        <li>At least 3+ years of working experience in PHP/WordPress.</li>
-                        <li>Solid PHP knowledge and a good understanding of advanced PSP concepts eg. OOP, Namespace, Taits
-                            ,etc
-                        </li>
-                        <li>HTMl/CSS</li>
-                        <li>Intermediate to Advanced JavaScript knowledge.</li>
-                        <li>Solid understanding of WordPress core features eg. action/hooks,restAPI,post
-                            type,taxonomies,post
-                            meta, database stuctures,etc.</li>
-                        <li>Good understanding of PHP/WordPress coding standard </li>
-                        <li>Must be able to write quality code following the coding standards and best practice.</li>
-                        <li>Ability to work without supervision.</li>
-                        <li>must be polite and should have good interpersonal communication skills.</li>
-                        <li>Fast learner, self motivated , eager to learn new technologies.</li>
-                    </ul>
+                    <ol>
+                        @foreach ($faculty as $item)
+                            <li>
+                                {{ $item->name }}
+                            </li>
+                        @endforeach
+                    </ol>
                     <h4>Jurusan</h4>
-                    <ul>
-                        <li>Fluency in English.</li>
-                        <li>Experience in other PHP framework.</li>
-                        <li>Knowledge in Software design patterns.</li>
-                        <li>Experience in Vue / React.</li>
-                        <li>VPS/Server knowledge.</li>
-                    </ul>
+                    <ol>
+                        @foreach ($studyProgram as $item)
+                            <li>
+                                {{ $item->name }}
+                            </li>
+                        @endforeach
+                    </ol>
                 </div>
             </div>
         </div>
@@ -59,30 +61,67 @@
             <div class="job-details-widget">
                 <h4>Informasi Pendaftaran</h4>
                 <div class="job-item__content d-inline-flex flex-column">
-                    <h5>Gelombang 1</h5>
-                    <div class="job-type">
-                        <h6>Job Type:</h6>
-                        <span>full time</span>
-                    </div>
-                    <div class="job-Industry">
-                        <h6>Industry:</h6>
-                        <span>Development</span>
-                    </div>
-                    <div class="job-salery">
-                        <h6>Salary:</h6>
-                        <span>$70-$150 per month</span>
-                    </div>
-                    <div class="job-location">
-                        <h6>Location:</h6>
-                        <span>$70-$150 per month</span>
-                    </div>
-                    <div class="job-deadline">
-                        <h6>Deadline:</h6>
-                        <span>31 may 2021</span>
-                    </div>
+                    @foreach ($univSnm as $item)
+                        <h5 class="mb-3">{{ $item->description }}</h5>
+                        <div class="job-type">
+                            <h6>Mulai:</h6>
+                            <span>{{ $item->start_date }}</span>
+                        </div>
+                        <div class="job-Industry">
+                            <h6>Selesai:</h6>
+                            <span>{{ $item->end_date }}</span>
+                        </div>
+                    @endforeach
                 </div>
-                <a href="job-apply.html" class="btn btn-primary w-100">Apply Now</a>
+                <br>
+                <div class="job-item__content d-inline-flex flex-column">
+                    @foreach ($univSbm as $item)
+                        <h5 class="mb-3">{{ $item->description }}</h5>
+                        <div class="job-type">
+                            <h6>Mulai:</h6>
+                            <span>{{ $item->start_date }}</span>
+                        </div>
+                        <div class="job-Industry">
+                            <h6>Selesai:</h6>
+                            <span>{{ $item->end_date }}</span>
+                        </div>
+                    @endforeach
+                </div>
+                <br>
+                <div class="job-item__content d-inline-flex flex-column">
+                    @foreach ($univMandiri as $item)
+                        <h5 class="mb-3">{{ $item->description }}</h5>
+                        <div class="job-type">
+                            <h6>Mulai:</h6>
+                            <span>{{ $item->start_date }}</span>
+                        </div>
+                        <div class="job-Industry">
+                            <h6>Selesai:</h6>
+                            <span>{{ $item->end_date }}</span>
+                        </div>
+                    @endforeach
+                </div>
+
+                <form action="{{ route('favorite', $item->id) }}" method="post">
+                    @csrf
+                    @method('POST')
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Tambah Favorit</button>
+                </form>
+
+                <form action="{{ route('unfavorite', $item->id) }}" method="post">
+                    @csrf
+                    @method('POST')
+
+                    <button type="submit" class="btn btn-danger w-100 mt-3">Hapus Favorit</button>
+                </form>
+
+                {{-- <a href="{{ route('favorite', $item->id) }}" class="btn btn-primary w-100">Tambah Favorit</a> --}}
             </div>
         </div>
+    </div>
+
+    <div class="row mt-5">
+        {{-- /Blog Card --}}
     </div>
 @endsection

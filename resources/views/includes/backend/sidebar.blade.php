@@ -17,6 +17,13 @@
                 <li class="menu-title mt-2">
                     <span>Users</span>
                 </li>
+
+                <li>
+                    <a href="{{ route('universities.index') }}" class="@if (Request::segment(1) == 'users') active @endif">
+                        <span class="nav-icon uil uil-user"></span>
+                        <span class="menu-text">Pengguna</span>
+                    </a>
+                </li>
                 {{-- <li class="">
                     <a href="sign-up.html">
                         <span class="nav-icon uil uil-sign-out-alt"></span>

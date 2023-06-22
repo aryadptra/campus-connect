@@ -14,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('frontend.detail');
+    return view('frontend.index');
 });
 
+Route::get('/', 'UniversityController@index')->name('home');
+Route::get('/universities-all', 'UniversityController@all')->name('universities');
+Route::get('/university/detail/{university}', 'UniversityController@show')->name('detail');
+Route::post('/university/add-favorite/{university}', 'UniversityController@addFavorite')->name('favorite');
+Route::post('/university/remove-favorite/{university}', 'UniversityController@removeFavorite')->name('unfavorite');
+
+// Blog
+Route::get('/blog', 'UniversityBlogController@index')->name('blog');
+
+// User
+Route::get('/user', 'UserController@index')->name('user');
+Route::put('/user/update', 'UserController@update')->name('user.update');
 
 
 Route::group(['middleware' => 'admin'], function () {
